@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2 - საშუალოს გამოთვლა</title>
+    <link rel="stylesheet" href="task2.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>რიცხვების საშუალო</h1>
+            <p class="description">შეიყვანეთ რიცხვები ":" სიმბოლოთი გამოყოფილი</p>
+            
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="numbersInput" 
+                    placeholder="მაგ: 1:2:3:4:5" 
+                    class="numbers-input"
+                >
+            </div>
+
+            <button id="calculateBtn" class="calculate-btn">Average</button>
+
+            <div id="result" class="result hidden">
+                <div class="result-label">საშუალო:</div>
+                <div id="resultValue" class="result-value">0</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="task2.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 1 - ფერის შეცვლა</title>
+    <link rel="stylesheet" href="task1.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ფერის შეცვლა</h1>
+        <button id="openModalBtn" class="open-btn">მოდალის გახსნა</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <h2>აირჩიე ფერი</h2>
+            <p>ჩაწერე ფერი: red, blue, green, black, white</p>
+            <input type="text" id="colorInput" placeholder="მაგ: red" class="color-input">
+            <div class="modal-buttons">
+                <button id="changeColorBtn" class="change-btn">ფერის შეცვლა</button>
+                <button id="closeModalBtn" class="close-btn">დახურვა</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="task1.js"></script>
+</body>
+</html>
+
