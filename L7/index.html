@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L7 - Promise-based setTimeout და Toy Shop</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+        .section h2 {
+            color: #4a5568;
+            margin-top: 0;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        .output {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-line;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>L7 - Promise-based setTimeout და Toy Shop</h1>
+        
+        <div class="section">
+            <h2>1. Promise-based setTimeout ტესტი</h2>
+            <p>პირველად ვტესტავთ ჩვენს promise-based setTimeout ფუნქციას:</p>
+            <button onclick="testMySetTimeout()">ტესტი mySetTimeout</button>
+            <div id="setTimeoutOutput" class="output"></div>
+        </div>
+
+        <div class="section">
+            <h2>2. Toy Shop - .then().catch() სინტაქსი</h2>
+            <p>სათამაშოს დამზადება (3წმ) → მიწოდება (2წმ) → გაყიდვა (1წმ)</p>
+            <button onclick="runToyShopWithThen()">დაიწყე Toy Shop (.then)</button>
+            <div id="toyShopThenOutput" class="output"></div>
+        </div>
+
+        <div class="section">
+            <h2>3. Toy Shop - async/await სინტაქსი</h2>
+            <p>იგივე პროცესი async/await სინტაქსით:</p>
+            <button onclick="runToyShopWithAsync()">დაიწყე Toy Shop (async/await)</button>
+            <div id="toyShopAsyncOutput" class="output"></div>
+        </div>
+
+        <div class="section">
+            <h2>4. ყველა ღილაკის გაშვება</h2>
+            <button onclick="runAllTests()">ყველაფრის ტესტი</button>
+            <div id="allTestsOutput" class="output"></div>
+        </div>
+    </div>
+
+    <script src="toy-shop.js"></script>
+</body>
+</html>
