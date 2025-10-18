@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 3 - Async Deep Copy Function</title>
+    <link rel="stylesheet" href="task3.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Async Deep Copy Function</h1>
+        
+        <div class="examples">
+            <h3>Try these examples:</h3>
+            <p><strong>Simple Object:</strong> <code>{"name": "John", "age": 30, "city": "New York"}</code></p>
+            <p><strong>Nested Object:</strong> <code>{"user": {"name": "Jane", "address": {"city": "London", "country": "UK"}}, "active": true}</code></p>
+            <p><strong>Array with Objects:</strong> <code>{"items": [{"id": 1, "name": "Item 1"}, {"id": 2, "name": "Item 2"}]}</code></p>
+        </div>
+
+        <div class="input-section">
+            <h3>Enter JSON Object:</h3>
+            <textarea id="jsonInput" class="json-input" placeholder='Enter a valid JSON object, e.g., {"name": "John", "age": 30}'>{"name": "John", "age": 30, "address": {"city": "New York", "country": "USA"}, "hobbies": ["reading", "coding"]}</textarea>
+            <br>
+            <button onclick="performDeepCopy()">Deep Copy</button>
+            <button onclick="testWithInvalidInput()">Test with Invalid Input</button>
+        </div>
+
+        <div class="test-buttons">
+            <button onclick="testSimpleObject()">Test Simple Object</button>
+            <button onclick="testNestedObject()">Test Nested Object</button>
+            <button onclick="testArrayObject()">Test Array with Objects</button>
+            <button onclick="testInvalidInput()">Test Invalid Input</button>
+        </div>
+
+        <div id="result" class="result" style="display: none;"></div>
+
+        <div id="comparison" class="comparison" style="display: none;">
+            <div class="comparison-item">
+                <h4>Original Object:</h4>
+                <div id="originalObject"></div>
+            </div>
+            <div class="comparison-item">
+                <h4>Deep Copied Object:</h4>
+                <div id="copiedObject"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="task3.js"></script>
+</body>
+</html>
