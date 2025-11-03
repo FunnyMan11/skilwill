@@ -1,52 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.css';
+import PendingTasksColumn from './PendingTasksColumn';
+import CompletedTasksColumn from './CompletedTasksColumn';
 
 function App() {
+  console.log('Rendering App');
+  
   const [tasks, setTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
   // Add new task to pending tasks
-  const addTask = () => {
+  const addTask = useCallback(() => {
     if (inputValue.trim() !== '') {
       const newTask = {
         id: Date.now(),
         text: inputValue
       };
-      setTasks([...tasks, newTask]);
+      setTasks(prevTasks => [...prevTasks, newTask]);
       setInputValue('');
     }
-  };
+  }, [inputValue]);
 
   // Handle Enter key press
-  const handleKeyPress = (e) => {
+  const handleKeyPress = useCallback((e) => {
     if (e.key === 'Enter') {
       addTask();
     }
-  };
+  }, [addTask]);
 
   // Move task from pending to completed
-  const completeTask = (taskId) => {
-    const taskToComplete = tasks.find(task => task.id === taskId);
-    if (taskToComplete) {
-      setCompletedTasks([...completedTasks, taskToComplete]);
-      setTasks(tasks.filter(task => task.id !== taskId));
-    }
-  };
+  const completeTask = useCallback((taskId) => {
+    setTasks(prevTasks => {
+      const taskToComplete = prevTasks.find(task => task.id === taskId);
+      if (taskToComplete) {
+        // React will batch these updates
+        setCompletedTasks(prevCompleted => [...prevCompleted, taskToComplete]);
+        return prevTasks.filter(task => task.id !== taskId);
+      }
+      return prevTasks;
+    });
+  }, []);
 
   // Move task from completed back to pending
-  const moveBackToPending = (taskId) => {
-    const taskToMove = completedTasks.find(task => task.id === taskId);
-    if (taskToMove) {
-      setTasks([...tasks, taskToMove]);
-      setCompletedTasks(completedTasks.filter(task => task.id !== taskId));
-    }
-  };
+  const moveBackToPending = useCallback((taskId) => {
+    setCompletedTasks(prevCompleted => {
+      const taskToMove = prevCompleted.find(task => task.id === taskId);
+      if (taskToMove) {
+        // React will batch these updates
+        setTasks(prevTasks => [...prevTasks, taskToMove]);
+        return prevCompleted.filter(task => task.id !== taskId);
+      }
+      return prevCompleted;
+    });
+  }, []);
 
   // Delete task from completed
-  const deleteTask = (taskId) => {
-    setCompletedTasks(completedTasks.filter(task => task.id !== taskId));
-  };
+  const deleteTask = useCallback((taskId) => {
+    setCompletedTasks(prevCompleted => prevCompleted.filter(task => task.id !== taskId));
+  }, []);
 
   return (
     <div className="App">
@@ -70,57 +82,12 @@ function App() {
 
         {/* Two columns */}
         <div className="columns">
-          {/* Pending tasks column */}
-          <div className="column">
-            <h2 className="column-title">შესასრულებელი დავალებები</h2>
-            <div className="tasks-list">
-              {tasks.length === 0 ? (
-                <p className="empty-message">დავალებები არ არის</p>
-              ) : (
-                tasks.map(task => (
-                  <div key={task.id} className="task-item">
-                    <span className="task-text">{task.text}</span>
-                    <button 
-                      className="btn complete-btn"
-                      onClick={() => completeTask(task.id)}
-                    >
-                      დასრულება
-                    </button>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-
-          {/* Completed tasks column */}
-          <div className="column">
-            <h2 className="column-title completed">შესრულებული დავალებები</h2>
-            <div className="tasks-list">
-              {completedTasks.length === 0 ? (
-                <p className="empty-message">დავალებები არ არის</p>
-              ) : (
-                completedTasks.map(task => (
-                  <div key={task.id} className="task-item completed">
-                    <span className="task-text">{task.text}</span>
-                    <div className="btn-group">
-                      <button 
-                        className="btn back-btn"
-                        onClick={() => moveBackToPending(task.id)}
-                      >
-                        უკან
-                      </button>
-                      <button 
-                        className="btn delete-btn"
-                        onClick={() => deleteTask(task.id)}
-                      >
-                        წაშლა
-                      </button>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
+          <PendingTasksColumn tasks={tasks} onComplete={completeTask} />
+          <CompletedTasksColumn 
+            tasks={completedTasks} 
+            onMoveBack={moveBackToPending}
+            onDelete={deleteTask}
+          />
         </div>
       </div>
     </div>
